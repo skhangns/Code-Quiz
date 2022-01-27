@@ -1,3 +1,10 @@
 .hide {
   display: none;
 }
+.wrapper {
+  background-color: bisque;
+  text-align: center;
+  padding: 150px;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
