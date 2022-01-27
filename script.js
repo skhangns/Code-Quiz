@@ -1,28 +1,99 @@
-var Button = document.getElementById("start");
-console.log(Button);
-Button.addEventListener("click", startQuiz);
+var quizQuestions = [
+    {
+     title: "Commonly used data types DO NOT include:",
+     choices: ["strings", "booleans", "alerts", "numbers"],
+     answer: "alerts"
+    },
+    {
+     title: "The condition in an if / else statement is enclosed within ____.",
+     choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+     answer: "parentheses"
+    },
+    {
+        title: "Commonly used data types DO NOT include:",
+        choices: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts"
+       },
+       {
+        title: "Commonly used data types DO NOT include:",
+        choices: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts"
+       },
+   ]
 
 
-
-
-
-// question should now appear, timer should start//
+   var highscores = document.getElementById("highscores")
+    var questions = document.getElementById("questions");
+    var timerdisplay= document.getElementById("time");
+    var questionchoices = document.getElementById("choices");
+    var submit = document.getElementById("submit");
+    var startBtn = document.getElementById("startBtn");
+    var initialsEl = document.getElementById("initials");
+    var feedbackEl = document.getElementById("feedback");
+    var QuestionIndex = 0;
+    var time = 60;
+   var timestate;
+   function timeInterval(){
+       time = time - 1
+       timerdisplay.textContent = time
+       if(time <= 0){
+           console.log("GameOver")
+       }
+   }
 function startQuiz(){
-    console.log("hello");
-    var element = document.getElementById("homescreen");
-    element.parentNode.removeChild(element);
-    var question = document.createElement("p");
-    var text = document.createTextNode("Inside which HTML element do we put the JavaScript?");
-    question.appendChild(text);
-    var div = document.createElement("div");
-    div.setAttribute("id","Question1");
-    div.appendChild(question);
-    var container = document.getElementsByClassName("container")[0];
-    container.appendChild(div);
-   
+    var startScreen = document.getElementById("start-screen");
+    startScreen.setAttribute("class","hide");
+    questions.removeAttribute("class");
+    timestate = setInterval(timeInterval,1000);
+    timerdisplay.textContent = time
+    // cycle function for quiz questions here
+   cycleQuestions()
     }
 
 
-//4 buttons(choices) add one button to submit should be availble//
+       
+    function cycleQuestions(){
+        var displayQuestion = quizQuestions[QuestionIndex] ;
+        var questionTitle = document.getElementById("question-title");
+       questionTitle.textContent = displayQuestion.title;
+       questionchoices.innerHTML = null;
+        displayQuestion.choices.forEach(element => {
+           var choiceButton = document.createElement("button");
+           choiceButton.setAttribute("class","option");
+           choiceButton.setAttribute("value", element);
+           choiceButton.textContent = element;
+           //check answer here
+           choiceButton.onclick = checkAnswer;
+           questionchoices.appendChild(choiceButton);
+
+        });
+
+
+
+    }
+
+function checkAnswer(){
+if(this.value === quizQuestions[QuestionIndex].answer){
+    alert("correct")
+
+} else{
+    alert("wrong")
+    time - 10
+    timerdisplay.textContent = time
+
+}
+    quizQuestions ++ 
+    if(QuestionIndex === quizQuestions.length){
+        // use end quizfunction
+        console.log("Quiz is Over")
+
+    }else{
+        cycleQuestions();
+    
+    }
+
+}
+startBtn.onclick = startQuiz
+
 
 
